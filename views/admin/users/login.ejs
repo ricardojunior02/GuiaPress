@@ -1,0 +1,21 @@
+<%- include ('../../partials/head.ejs') %>
+<body>
+  <div class="container">
+    <br>
+    <div class="card">
+      <div class="card-header">
+        Login de Admin
+      </div>
+      <div class="card-body">
+        <form  action="/authenticate" method="POST">
+          <input type="email" class="form-control" name="email" placeholder="exemplo@email.com">
+          <br>
+          <input type="password" class="form-control" name="password" placeholder="Digite sua senha">
+          <br>
+          <button type="submit" class="btn btn-success btn-block">Logar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include ('../../partials/script.ejs') %>
