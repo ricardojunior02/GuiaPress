@@ -1,0 +1,57 @@
+<%- include ('../../partials/head.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+<body>
+  <div class="container">
+    <div class="card" style="margin-top: 5px;">
+      <div class="card-header">
+        <h2>Edição de artigos</h2>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="/articles/update" onsubmit="updateArticle(e, this)" >
+          <input class="form-control" type="text" name="title" placeholder="Defina o titulo da categoria" value="<%= article.title%>">
+          <input type="hidden" name="id" value="<%= article.id%>">
+          <br>
+          <textarea class="form-control" name="body" id="article"></textarea>
+          <br>
+          <label>Categoria</label>
+          <select name="category" class="form-control" id="">
+            <% categories.forEach(category => {%>
+              <% if(category.id === article.categoryId) {%>
+                <option value="<%= category.id %>" selected><%= category.title%></option>
+                <%} else {%>
+                 <%}%> 
+              <option value="<%= category.id %>"><%= category.title%></option>
+            <%})%>
+          </select>
+          <br>
+          <button type="submit" class="btn btn-success">Atualizar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id="content" style="display: none;">
+    <%- article.body%>
+  </div>
+</body>
+<script src="/tinymce/js/tinymce/tinymce.min.js"></script>
+<script>
+  tinymce.init({
+    language: 'pt_BR',
+    selector: '#article',
+    plugins: [
+      'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+    ],
+    init_instance_callback: () => {
+      tinymce.get('article').setContent($('#content').html())
+    }
+  });
+
+  function updateArticle(e, form){
+    e.preventDefault();
+    const message = alert('Voce realmente deja atualizar essa categoria');
+    if(message){
+      form.submit();
+    }
+  }
+</script>
+<%- include ('../../partials/script.ejs') %>
